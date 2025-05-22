@@ -102,7 +102,7 @@ jobs:
         continue-on-error: true
 
       - name: 如果失败进行 ssh 在线编译 (Start SSH service on failure)
-        if: failure() &&  ${{inputs.debug == true}}
+        if: failure() && ${{inputs.debug == true}}
         uses: mxschmitt/action-tmate@v3
         timeout-minutes: 300
 
