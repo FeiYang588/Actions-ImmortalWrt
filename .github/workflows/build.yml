@@ -102,19 +102,8 @@ jobs:
         with:
           name: ImmortalWrt-build-result
           path: ImmortalWrt/bin/targets
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: my-artifact
-          path: ./
-
-      - name: Create Release
+      - name: 新建一个release (Create Release)
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -125,12 +114,12 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
+      - name: 上传编译结果 （Upload Release Asset）
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifact.txt
-          asset_name: artifact.txt
-          asset_content_type: text/plain
+          asset_path: ImmortalWrt/bin/targets/ImmortalWrt-build-result
+          asset_name: ImmortalWrt-build-result
+          asset_content_type: application/zip
